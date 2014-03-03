@@ -12,7 +12,7 @@ class RabbitmqTransport(BaseTransport):
 
         self._rabbitmq_config = {}
         config_to_store = [
-            'key', 'exchange', 'username', 'password', 'host', 'port', 'vhost', 
+            'key', 'exchange', 'username', 'password', 'host', 'port', 'vhost',
             'queue', 'queue_durable', 'ha_queue', 'exchange_type', 'exchange_durable'
         ]
 
@@ -84,6 +84,7 @@ class RabbitmqTransport(BaseTransport):
                     raise TransportException(e.strerror)
                 except AttributeError:
                     raise TransportException('Unspecified exception encountered')  # TRAP ALL THE THINGS!
+        self.reset_message_number()
 
     def interrupt(self):
         if self._connection:

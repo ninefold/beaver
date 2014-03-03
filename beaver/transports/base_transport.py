@@ -31,6 +31,7 @@ class BaseTransport(object):
         self._formatters = {}
         self._is_valid = True
         self._logger = logger
+        self._message_number = 0
 
         def raw_formatter(data):
             return data['@message']
@@ -79,8 +80,17 @@ class BaseTransport(object):
             '@timestamp': timestamp,
             '@source_host': self._current_host,
             '@source_path': filename,
+            '@message_number': self.increment_message_number(),
             '@message': line,
         })
+
+    def increment_message_number(self):
+        self._message_number++
+
+        return self._message_number
+
+    def reset_message_number(self):
+        self._message_number = 0
 
     def get_timestamp(self, **kwargs):
         """Retrieves the timestamp for a given set of data"""
