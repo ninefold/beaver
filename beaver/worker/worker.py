@@ -295,7 +295,6 @@ class Worker(object):
             'format': self._beaver_config.get_field('format', filename),
             'ignore_empty': self._beaver_config.get_field('ignore_empty', filename),
             'lines': lines,
-            'line_count': self._line_count,
             'timestamp': datetime.datetime.utcnow().isoformat() + "Z",
             'tags': self._beaver_config.get_field('tags', filename),
             'type': self._beaver_config.get_field('type', filename),

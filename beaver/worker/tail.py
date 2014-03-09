@@ -244,7 +244,6 @@ class Tail(BaseLog):
             'format': self._format,
             'ignore_empty': self._ignore_empty,
             'lines': lines,
-            'line_count': self._line_count,
             'timestamp': datetime.datetime.utcnow().isoformat() + 'Z',
             'tags': self._tags,
             'type': self._type,
