@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import re
 import socket
 import warnings
 
@@ -33,6 +34,10 @@ class BeaverConfig():
             # buffered tokenization
             'delimiter': "\n",
             'size_limit': '',
+
+            # multiline events support. Default is disabled
+            'multiline_regex_after': '',
+            'multiline_regex_before': '',
 
             'message_format': '',
             'sincedb_write_interval': '15',
@@ -349,6 +354,13 @@ class BeaverConfig():
             require_bool = ['debug', 'ignore_empty', 'ignore_truncate']
             for k in require_bool:
                 config[k] = bool(int(config[k]))
+
+            config['delimiter'] = config['delimiter'].decode('string-escape')
+
+            if config['multiline_regex_after']:
+                config['multiline_regex_after'] = re.compile(config['multiline_regex_after'])
+            if config['multiline_regex_before']:
+                config['multiline_regex_before'] = re.compile(config['multiline_regex_before'])
 
             require_int = ['sincedb_write_interval', 'stat_interval', 'tail_lines']
             for k in require_int:
